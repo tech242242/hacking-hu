@@ -1,0 +1,106 @@
+.hacking-animation {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.animation-header {
+  margin-bottom: 1.5rem;
+}
+
+.animation-header h3 {
+  color: #00ff00;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px #00ff00;
+  font-size: 1.2rem;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background: rgba(0, 20, 0, 0.8);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #00ff00;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 78%;
+  background: linear-gradient(90deg, #00ff00, #00cc00);
+  animation: progress-animation 2s infinite alternate;
+}
+
+@keyframes progress-animation {
+  0% { width: 78%; }
+  100% { width: 82%; }
+}
+
+.progress-text {
+  color: #00ff00;
+  font-weight: bold;
+  min-width: 40px;
+}
+
+.code-display {
+  flex: 1;
+  overflow: hidden;
+  background: rgba(0, 5, 0, 0.9);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 4px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.code-line {
+  margin-bottom: 0.3rem;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 0.8; }
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  color: #00ff00;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.8;
+}
+
+.stat-value {
+  color: #00ff00;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.stat-value.danger {
+  color: #ff0000;
+  text-shadow: 0 0 5px #ff0000;
+}

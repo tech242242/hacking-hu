@@ -5,17 +5,28 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Secure Terminal v3.14 | Authorization Required</title>
+    <!-- Font Awesome CDN شامل کریں -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
       body {
         margin: 0;
         padding: 0;
         overflow: hidden;
         background: #000;
+        font-family: 'Courier New', monospace;
       }
+      
       #root {
         width: 100vw;
         height: 100vh;
       }
+      
       .loading-screen {
         position: fixed;
         top: 0;
@@ -31,20 +42,100 @@
         font-family: 'Courier New', monospace;
         font-size: 1.5rem;
       }
+      
       .loading-text {
         animation: blink 1s infinite;
+        text-shadow: 0 0 10px #0f0;
       }
+      
       @keyframes blink {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.3; }
       }
+      
+      /* اضافی CSS for binary digits */
+      .binary-digit {
+        position: absolute;
+        color: #0f0;
+        font-size: 18px;
+        opacity: 0;
+        animation: fall linear infinite;
+      }
+      
+      @keyframes fall {
+        to {
+          top: 100vh;
+          opacity: 0;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-      <div class="loading-text">Initializing secure connection...</div>
+      <div class="loading-text" id="loadingText">Initializing secure connection...</div>
     </div>
+    
+    <!-- Binary Background Animation -->
+    <div id="binary-bg"></div>
+    
+    <!-- React Root -->
     <div id="root"></div>
+    
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Binary Animation Script -->
+    <script>
+      // Binary animation function
+      function createBinaryAnimation() {
+        const binaryBg = document.getElementById('binary-bg');
+        const digits = '01';
+        
+        for (let i = 0; i < 100; i++) {
+          const binaryDigit = document.createElement('div');
+          binaryDigit.className = 'binary-digit';
+          binaryDigit.textContent = digits[Math.floor(Math.random() * digits.length)];
+          binaryDigit.style.left = `${Math.random() * 100}%`;
+          binaryDigit.style.top = `${Math.random() * -20}%`;
+          binaryDigit.style.animationDuration = `${Math.random() * 10 + 10}s`;
+          binaryDigit.style.animationDelay = `${Math.random() * 5}s`;
+          binaryBg.appendChild(binaryDigit);
+        }
+      }
+      
+      // Update loading text
+      const loadingMessages = [
+        "Initializing secure connection...",
+        "Loading security protocols...",
+        "Establishing encrypted link...",
+        "Verifying system integrity...",
+        "Starting authentication module..."
+      ];
+      
+      let currentMessage = 0;
+      const loadingText = document.getElementById('loadingText');
+      
+      function updateLoadingMessage() {
+        if (currentMessage < loadingMessages.length) {
+          loadingText.textContent = loadingMessages[currentMessage];
+          currentMessage++;
+          setTimeout(updateLoadingMessage, 1500);
+        }
+      }
+      
+      // Start animations when page loads
+      window.addEventListener('load', () => {
+        createBinaryAnimation();
+        updateLoadingMessage();
+        
+        // Hide loading screen after 5 seconds (React should load by then)
+        setTimeout(() => {
+          document.getElementById('loadingScreen').style.opacity = '0';
+          setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+          }, 500);
+        }, 5000);
+      });
+    </script>
   </body>
 </html>

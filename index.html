@@ -4,9 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hacking Interface | Security Terminal</title>
+    <title>Secure Terminal v3.14 | Authorization Required</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        width: 100vw;
+        height: 100vh;
+      }
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        color: #0f0;
+        font-family: 'Courier New', monospace;
+        font-size: 1.5rem;
+      }
+      .loading-text {
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+    </style>
   </head>
-  <body class="bg-black">
+  <body>
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-text">Initializing secure connection...</div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

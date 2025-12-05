@@ -1,0 +1,144 @@
+.terminal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.95);
+}
+
+.terminal-header {
+  background: linear-gradient(90deg, #002200, #001100);
+  padding: 0.8rem 1.5rem;
+  border-bottom: 1px solid #00ff00;
+}
+
+.terminal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #00ff00;
+}
+
+.title-text {
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00;
+  letter-spacing: 1px;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.control.close { background: #ff5f56; }
+.control.minimize { background: #ffbd2e; }
+.control.maximize { background: #27ca3f; }
+
+.terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.welcome-message {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.ascii-art {
+  color: #00ff00;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.welcome-text {
+  color: #00ff00;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.command-line {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.command-line.input {
+  animation: typewriter 2s steps(40) 1s 1 normal both;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.prompt {
+  color: #00ff00;
+  font-weight: bold;
+  min-width: 20px;
+}
+
+.command-text {
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.command-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  outline: none;
+  caret-color: #00ff00;
+}
+
+.command-input::placeholder {
+  color: rgba(0, 255, 0, 0.5);
+}
+
+.terminal-footer {
+  background: rgba(0, 20, 0, 0.9);
+  padding: 1rem;
+  border-top: 1px solid #00ff00;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.suggestion {
+  background: rgba(0, 255, 0, 0.1);
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.suggestion:hover {
+  background: rgba(0, 255, 0, 0.2);
+  transform: translateY(-1px);
+}

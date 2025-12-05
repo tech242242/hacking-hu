@@ -1,88 +1,60 @@
-import { useState } from 'react'
-import LoginScreen from './components/LoginScreen'
-import HackingAnimation from './components/HackingAnimation'
-import Terminal from './components/Terminal'
+import { useState, useEffect } from 'react'
+import LoginSystem from './components/LoginSystem'
+import Dashboard from './components/Dashboard'
 import MatrixRain from './components/MatrixRain'
-import NetworkNodes from './components/NetworkNodes'
-import ScanLine from './components/ScanLine'
-import GlitchText from './components/GlitchText'
 import './App.css'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [showMainInterface, setShowMainInterface] = useState(false)
+  const [username, setUsername] = useState('')
+  const [showMatrix, setShowMatrix] = useState(true)
 
-  const handleLoginSuccess = () => {
-    setTimeout(() => {
-      setShowMainInterface(true)
-    }, 3000)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMatrix(false)
+    }, 4000)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
+  const handleLoginSuccess = (user) => {
+    setUsername(user || 'Muhammad Saqib')
+    setIsLoggedIn(true)
   }
 
-  if (!isLoggedIn) {
-    return <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />
-  }
-
-  if (!showMainInterface) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-4xl text-green-500 mb-4 animate-pulse">
-            <i className="fas fa-spinner fa-spin"></i>
-          </div>
-          <div className="text-green-400 font-terminal">
-            LOADING MAIN INTERFACE...
-          </div>
-        </div>
-      </div>
-    )
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+    setUsername('')
   }
 
   return (
     <div className="app-container">
-      <NetworkNodes />
-      <ScanLine />
+      {showMatrix && <MatrixRain />}
       
-      <div className="main-interface">
-        <header className="header">
-          <div className="logo">
-            <GlitchText text="[root@cyberops~]#" className="logo-text" />
-            <span className="cursor"></span>
-          </div>
-          <div className="status-indicators">
-            <div className="status active">
-              <i className="fas fa-shield-alt mr-2"></i>
-              SECURE
-            </div>
-            <div className="status warning">
-              <i className="fas fa-broadcast-tower mr-2"></i>
-              ONLINE
-            </div>
-            <div className="status danger">
-              <i className="fas fa-user-secret mr-2"></i>
-              STEALTH
-            </div>
-          </div>
-        </header>
-        
-        <div className="content-grid">
-          <div className="left-panel">
-            <HackingAnimation />
-          </div>
-          
-          <div className="right-panel">
-            <Terminal />
-          </div>
+      <div className={`main-content ${isLoggedIn ? 'dashboard-view' : 'login-view'}`}>
+        {isLoggedIn ? (
+          <Dashboard 
+            username={username} 
+            onLogout={handleLogout}
+          />
+        ) : (
+          <LoginSystem onLoginSuccess={() => handleLoginSuccess('Muhammad Saqib')} />
+        )}
+      </div>
+      
+      <div className="global-status-bar">
+        <div className="status-item">
+          <span className="status-dot online"></span>
+          <span>CONNECTED</span>
         </div>
-        
-        <footer className="footer">
-          <div className="connection-status">
-            <span className="dot online"></span>
-            USER: MUHAMMAD SAQIB | CLEARANCE: ALPHA | ENCRYPTION: AES-256
-          </div>
-          <div className="time-display">
-            [{new Date().toLocaleTimeString()} UTC]
-          </div>
-        </footer>
+        <div className="status-item">
+          <i className="fas fa-shield-alt"></i>
+          <span>ENCRYPTED</span>
+        </div>
+        <div className="status-item">
+          <i className="fas fa-clock"></i>
+          <span>{new Date().toLocaleTimeString()}</span>
+        </div>
       </div>
     </div>
   )
